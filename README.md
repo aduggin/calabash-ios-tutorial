@@ -85,8 +85,6 @@ Then I playback recording "mytouch on "accLabel" with offset 10,22 | insert | in
 Then I rotate device left | insert | insert
 Then I rotate device right | insert | insert
 insert | insert | insert
-insert | insert | insert
-insert | insert | insert
 
 
 To see how these have been implement: [calabash_steps.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/features/step_definitions/calabash_steps.rb)
@@ -98,20 +96,31 @@ To see how these have been implement: [calabash_steps.rb](https://github.com/cal
 
 The simplest way of writing custom steps is to combine one or more existing steps. You do this using the macro function.
 
+	Then /^the First page should display the correct components$/ do
+	  macro 'I should see "First View"'
+	  macro 'I see 2 input field'
+	  macro 'I should see a "Name" input field'
+	  macro 'I should see "switch"'
+	  macro 'I should see a "login" button'
+	  macro 'I should see a "Alert" button'
+	end
 
+If a step fails then you will get a useful error message
 
-
-
-
+	Expected at least 2 text/input fields, found 1 (RuntimeError)
 
 ## Ruby API
 
 Things you can do
 
 * touch
+* retrieve label
 * query
+* check if something exists in the view
+* use the keyboard
+* rotate the device
+* traverse views (using Directions)
 
-Directions
 
 Example | Descripiton | Notes |
 ---- | ----------- | ----------- |
@@ -166,18 +175,6 @@ rotate :left | insert | insert
 rotate :right | insert | insert
 screenshot "/Users/krukow/tmp", "my.png" | insert | insert
 insert | insert | insert
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 * In general you use a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html) by writing a filter: {selector OP comp}, where selector is the name of a selector you want to perform on the object and OP and comp are an operation and something to compare with.
