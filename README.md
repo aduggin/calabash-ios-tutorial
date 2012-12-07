@@ -1,5 +1,13 @@
 # Calabash iOS Tutorial
 
+* Command Line
+* Predefined Steps
+* Custom Steps
+* Resourcess
+
+## Command Line
+
+
 Setup your project for Calabash-iOS
 
 	calabash-ios setup
@@ -31,9 +39,14 @@ Things you can do:
 * scroll
 * pinch
 * wait
+* go back
 * take picture
+* playback recording
+* rotate
 
 Uses the Accessibility Labels (which can be seen using the Accessibility Inspector)
+
+### Examples
 
 Step | Descripiton | Notes |
 ---- | ----------- | ----------- |
@@ -109,7 +122,7 @@ If a step fails then you will get a useful error message
 
 	Expected at least 2 text/input fields, found 1 (RuntimeError)
 
-## Ruby API
+### Ruby API
 
 Things you can do
 
@@ -121,12 +134,58 @@ Things you can do
 * rotate the device
 * traverse views (using Directions)
 
+#### Methods
+* touch()
+* label()
+* query()
+* element_exists()
+* element_does_not_exist()
+* view_with_mark_exists()
+* sleep()
+* wait_for()
+* scroll()
+* scroll_to_row()
+* check_element_exists()
+* keyboard_enter_char()
+* done()
+* rotate()
+* screenshot()
+
+
+#### Selectors
+* index:0
+* marked:'Second'
+* isEnabled:1
+* text:'Hello'
+* {text LIKE 'Hel*'}
+* view:'MyClassName'
+* webView css:'#header'
+
+#### Arguements
+* numberOfRowsInSection:0
+* :up
+* :down
+* :right
+* :left
+
+
+#### Directions / Traversal
+
+* parent
+* child
+
+#### Properties
+* :accessibilityLabel
+
+
+#### Examples
 
 Example | Descripiton | Notes |
 ---- | ----------- | ----------- |
 touch("button index:0") | touch the first button | insert
 touch("tabBarButton index:1") | touch the second tabBarButton | insert
 touch("tabBarButton marked:'Second'") | though the tabBarButton with the accessibility id or label 'Second' | insert
+touch("webView css:'a'") | insert | insert
 label "tableViewCell index:0" | insert | insert
 query("tabBarButton") | Returns an array of all the tabBarButtons | insert
 query("tabBarButton", :accessibilityLabel) | Returns an array of all the tabBarButton accessibility labels | insert
@@ -135,11 +194,18 @@ query("tabBarButton index:0 label", :text) | Returns all the labels inside the f
 query("TabBar", :selectedItem, "title")[0] | insert | insert
 query("button marked:'Player play icon'", :isSelected) | insert | insert
 query "label index:0" | Returns the first label | insert
+query "label text:'Hello'" | insert | insert
 query "label marked:'Map'" | Returns the label with the accessibility label 'Map' | insert
 query "label {text LIKE 'Cell 1*'}" | Returns the labels that start with 'Cell 1' | * Uses a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html)
+query("webView css:'*'") | Get all the HTML associated with the webview | insert
+query("webView css:'a'").first['html'] | insert | insert
 query "button isEnabled:1" | insert | insert
 query("view marked:'switch'") | Returns a view with accessibility id or label 'switch' | insert
 query("button")[0]["class"] | Returns the class of the first button | insert
+query("tableView",numberOfRowsInSection:0) | insert | insert
+query("webView css:'#header'") | insert | insert
+query("view:'MKMapView'") | matches a view based on the className 'MKMapView'|
+query "webView", :request | Get the page url | insert
 element_exists("view") | insert | insert
 element_exists("button marked:'#{name}'") | insert | insert
 element_does_not_exist("button marked:'#{name}'") | insert | insert
@@ -147,20 +213,13 @@ view_with_mark_exists("Logout") | insert | insert
 sleep(STEP_PAUSE) | insert | insert
 wait_for(WAIT_TIMEOUT) | insert | insert
 wait_for(5) | insert | insert
-query("view:'MKMapView'") | matches a view based on the className 'MKMapView'|
 scroll_to_row "tableView", 3 | insert | insert
-query("tableView",numberOfRowsInSection:0) | insert | insert
-query("webView css:'#header'") | insert | insert
 set_text "webView css:'input.login'", "ruk" | insert | insert
 scroll "webView", :up | insert | insert
 scroll "webView", :down | insert | insert
 scroll "webView", :left | insert | insert
 scroll "webView", :right | insert | insert
 scroll_to_row "tableView", 2 | insert | insert
-query("webView css:'a'").first['html'] | insert | insert
-touch("webView css:'a'") | insert | insert
-query("webView css:'*'") | Get all the HTML associated with the webview | insert
-query "webView", :request | Get the page url | insert
 check_element_exists("view marked:'#{expected_mark}'") | insert | insert
 keyboard_enter_char "a" | insert | insert
 keyboard_enter_char "Dictation" | insert | insert
