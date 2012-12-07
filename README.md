@@ -1,4 +1,4 @@
-# Calabash
+# Calabash iOS Tutorial
 
 Setup your project for Calabash-iOS
 
