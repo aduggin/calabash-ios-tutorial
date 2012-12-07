@@ -91,6 +91,19 @@ insert | insert | insert
 
 To see how these have been implement: [calabash_steps.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/features/step_definitions/calabash_steps.rb)
 
+
+## Custom Steps
+
+### Macro Steps
+
+The simplest way of writing custom steps is to combine one or more existing steps. You do this using the macro function.
+
+
+
+
+
+
+
 ## Ruby API
 
 Things you can do
@@ -182,7 +195,15 @@ insert | insert | insert
 	* [05 Query syntax](https://github.com/calabash/calabash-ios/wiki/05-Query-syntax)
 	* [06 WebView Support](https://github.com/calabash/calabash-ios/wiki/06-WebView-Support)
 	* [calabash-cucumber - ruby files](https://github.com/calabash/calabash-ios/tree/master/calabash-cucumber/lib/calabash-cucumber)
-	* [calabash_steps.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/features/step_definitions/calabash_steps.rb)
+	* Predefined steps
+		* [calabash_steps.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/features/step_definitions/calabash_steps.rb)
+	* Calabash iOS Ruby API
+		* [core.rb - iOS api](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/core.rb)
+		* [operations.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/operations.rb)
+		* [keyboard_helpers.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/keyboard_helpers.rb)
+		* [location.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/location.rb)
+		* [tests_helpers.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/tests_helpers.rb)
+		* [wait_helpers.rb](https://github.com/calabash/calabash-ios/blob/master/calabash-cucumber/lib/calabash-cucumber/wait_helpers.rb)
 * [calabash-ios forum](https://groups.google.com/forum/?fromgroups=#!forum/calabash-ios)
 
 * [lesspainful](https://www.lesspainful.com/)
