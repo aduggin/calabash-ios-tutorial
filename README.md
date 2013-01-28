@@ -24,6 +24,30 @@ Start up the calabash console
 	
 	calabash-ios console
 	
+Run cucumber without launching or closing down the simulator
+
+	NO_LAUNCH=1 cucumber
+	
+Setting the simulator version 
+
+	SDK_VERSION=5.0 cucumber
+
+Run a single feature
+
+	cucumber features/masthead.feature
+	
+Run a feature with a tag
+
+	cucumber -t @wip
+	
+Run all features without a tag
+
+	cucumber -t ~@wip
+	
+Output the view in an easy to read format from a step definition
+
+	puts query("view").to_yaml 
+
 
 ## Predefined Steps
 
@@ -154,14 +178,16 @@ Things you can do
 
 #### Selectors
 * index:0
-* marked:'Second'
+* marked:'London'
+* accessibilityIdentifier:'location_name'
+* accessibilityLabel:'London'
 * isEnabled:1
 * text:'Hello'
 * {text LIKE 'Hel*'}
 * view:'MyClassName'
 * webView css:'#header'
 
-#### Arguements
+#### Arguments
 * numberOfRowsInSection:0
 * :up
 * :down
@@ -176,9 +202,22 @@ Things you can do
 
 #### Properties
 * :accessibilityLabel
+* :accessibilityIdentifier
+* :text
 
 
 #### Examples
+
+
+2 ways to check if an element exists with an specific accessibilityIdentifier
+
+	element_exists("view marked:'location_name'")
+	element_exists("view accessibilityIdentifier:'location_name'")
+	
+2 ways to retrieve the text of a view with a specific accessibilityIdentifier
+
+	query("view marked:'location_name'", :text)[0]
+	query("view accessibilityIdentifier:'location_name'", :text)[0]
 
 Example | Descripiton | Notes |
 ---- | ----------- | ----------- |
@@ -197,6 +236,7 @@ query "label index:0" | Returns the first label | insert
 query "label text:'Hello'" | insert | insert
 query "label marked:'Map'" | Returns the label with the accessibility label 'Map' | insert
 query "label {text LIKE 'Cell 1*'}" | Returns the labels that start with 'Cell 1' | * Uses a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html)
+query("imageView {accessibilityLabel LIKE '*.png'}") | Returns the images with an accessibility label that contains '.png' | insert
 query("webView css:'*'") | Get all the HTML associated with the webview | insert
 query("webView css:'a'").first['html'] | insert | insert
 query "button isEnabled:1" | insert | insert
@@ -235,8 +275,8 @@ rotate :right | insert | insert
 screenshot "/Users/krukow/tmp", "my.png" | insert | insert
 insert | insert | insert
 
+* In general you use a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html) by writing a filter: {selector OP comp}, where selector is the name of a selector you want to perform on the object and OP and comp are an operation and something to compare with. See also [Predicate Programming Guide](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Conceptual/Predicates/Articles/pSyntax.html#//apple_ref/doc/uid/TP40001795-CJBDBHCB)
 
-* In general you use a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html) by writing a filter: {selector OP comp}, where selector is the name of a selector you want to perform on the object and OP and comp are an operation and something to compare with.
 
 ## Resources
 
@@ -273,6 +313,7 @@ insert | insert | insert
 * [Calabash, an open-source automated testing technology for native mobile, by Karl Krukow](http://www.youtube.com/watch?v=0an8l1RAe0M)
 * [iOS Automated Testing with Calabash: Tips and Tricks](http://www.youtube.com/watch?v=mvzGAs9aD20&feature=plcp)
 * [Calabash, an open-source automated testing technology for iOS and Android](http://skillsmatter.com/podcast/home/calabash-an-open-source-automated-testing-technology-for-ios-and-android)
+* [Karl Krukow presents Calabash: Automated Acceptance Testing for Android](http://www.youtube.com/watch?v=9FAjxMLyTco), 6 October 2012, 73 mins
 
 ### Related
 * [uispec - Behavior Driven Development for the iPhone](http://www.hans-eric.com/share/getting-started-with-uispec/)
