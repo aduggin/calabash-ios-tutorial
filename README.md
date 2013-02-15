@@ -49,6 +49,10 @@ Output the view in an easy to read format from a step definition
 	puts query("view").to_yaml 
 
 
+Reset the app in-between tests
+
+	NO_STOP=1 RESET_BETWEEN_SCENARIOS=1 SDK_VERSION=5.1 cucumber -t @wip
+
 ## Predefined Steps
 
 Things you can do:
@@ -175,17 +179,30 @@ Things you can do
 * rotate()
 * screenshot()
 
+#### UI Elements
+
+* view
+* label
+* textField
+* button
+
+
 
 #### Selectors
 * index:0
 * marked:'London'
+* placeholder:'username'
 * accessibilityIdentifier:'location_name'
 * accessibilityLabel:'London'
 * isEnabled:1
 * text:'Hello'
-* {text LIKE 'Hel*'}
 * view:'MyClassName'
 * webView css:'#header'
+
+
+##### NSPredicate examples
+* {text LIKE 'Hel*'}
+
 
 #### Arguments
 * numberOfRowsInSection:0
@@ -203,8 +220,12 @@ Things you can do
 #### Properties
 * :accessibilityLabel
 * :accessibilityIdentifier
+* :placeholder
 * :text
 
+
+query("button", :titleLabel, :text)
+query("button buttonLabel text:'Foo Bar')
 
 #### Examples
 
@@ -218,6 +239,13 @@ Things you can do
 
 	query("view marked:'location_name'", :text)[0]
 	query("view accessibilityIdentifier:'location_name'", :text)[0]
+
+
+Ways to output properties in the IRC
+
+	classes "view" 
+	label "view"
+
 
 Example | Descripiton | Notes |
 ---- | ----------- | ----------- |
@@ -273,6 +301,7 @@ done | Enters "Done" or "Search" or "Return" | insert
 rotate :left | insert | insert
 rotate :right | insert | insert
 screenshot "/Users/krukow/tmp", "my.png" | insert | insert
+screenshot_embed( :label => 'Foo bar') | insert | insert
 insert | insert | insert
 
 * In general you use a [NSPredicate](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSPredicate_Class/Reference/NSPredicate.html) by writing a filter: {selector OP comp}, where selector is the name of a selector you want to perform on the object and OP and comp are an operation and something to compare with. See also [Predicate Programming Guide](https://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Conceptual/Predicates/Articles/pSyntax.html#//apple_ref/doc/uid/TP40001795-CJBDBHCB)
